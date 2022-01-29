@@ -28,8 +28,8 @@ export default function ChatPage() {
       texto: novaMensagem,
     };
     setListaDeMensagens([
-      ...listaDeMensagens,
       mensagem,
+      ...listaDeMensagens,
     ]);
     setMensagem("");
   }
@@ -74,15 +74,7 @@ export default function ChatPage() {
             padding: "16px",
           }}
         >
-          <MessageList listaDeMensagens={listaDeMensagens} />
-
-          {listaDeMensagens.map((mensagemAtual) => {
-            return (
-              <li key={mensagemAtual.id}>
-                {mensagemAtual.de}: {mensagemAtual.texto}
-              </li>
-            );
-          })}
+          <MessageList mensagem={listaDeMensagens} />
 
           <Box
             as="form"
@@ -153,15 +145,15 @@ function MessageList(props) {
     <Box
       tag="ul"
       styleSheet={{
-        overflow: "scroll",
+        overflow: "auto",
         display: "flex",
         flexDirection: "column-reverse",
         flex: 1,
         color: appConfig.theme.colors.neutrals["000"],
         marginBottom: "16px",
       }}
-
-      {...props.listaDeMensagens.map((mensagem) => {
+    >
+      {props.mensagem.map((mensagem) => {
         return (
           <Text
             key={mensagem.id}
@@ -178,6 +170,8 @@ function MessageList(props) {
             <Box
               styleSheet={{
                 marginBottom: "8px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <Image
@@ -206,7 +200,6 @@ function MessageList(props) {
           </Text>
         );
       })}
-    >
 
     </Box>
   );

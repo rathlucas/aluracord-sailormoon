@@ -113,7 +113,6 @@ export default function PaginaInicial() {
                 },
               }}
             />
-
             <Button
               type="submit"
               label="Entrar"
