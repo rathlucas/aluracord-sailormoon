@@ -1,9 +1,16 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
-import { useEffect, useState } from 'react'
+import { FormEvent, ReactNode, useState } from 'react'
 import { useRouter } from 'next/router'
 import appConfig from '../config.json'
+import styles from './index/index.module.scss'
+import { NextPage } from 'next'
 
-function Titulo(props) {
+type TitleProps = {
+  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  children: ReactNode
+}
+
+function Title(props: TitleProps) {
   const Tag = props.tag
   return (
     <>
@@ -19,60 +26,23 @@ function Titulo(props) {
   )
 }
 
-export default function PaginaInicial() {
+export default function PaginaInicial(): NextPage {
   const [username, setUsername] = useState('')
   const roteamento = useRouter()
 
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault()
+
+    roteamento.push(`./chat?username=${username}`)
+    console.log(`${username} successfully logged in`)
+  }
+
   return (
     <>
-      <Box
-        styleSheet={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: 'url(/background-sailorcord.png)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-      >
-        <Box
-          styleSheet={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexDirection: {
-              xs: 'column',
-              sm: 'row',
-            },
-            width: '100%',
-            maxWidth: '700px',
-            borderRadius: '5px',
-            padding: '32px',
-            margin: '16px',
-            boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700],
-          }}
-        >
-          {/* Formulário */}
-          <Box
-            as='form'
-            onSubmit={function (event) {
-              event.preventDefault()
-              roteamento.push(`./chat?username=${username}`)
-              console.log('Submited')
-            }}
-            styleSheet={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: { xs: '100%', sm: '50%' },
-              textAlign: 'center',
-              marginBottom: '32px',
-            }}
-          >
-            <Titulo tag='h2'>Boas vindas de volta!</Titulo>
+      <div className={styles.homeBackground}>
+        <div className={styles.formContainer}>
+          <form className={styles.form} onSubmit={handleLogin}>
+            <Title tag='h2'>Boas vindas de volta!</Title>
             <Text
               variant='body3'
               styleSheet={{
@@ -123,8 +93,7 @@ export default function PaginaInicial() {
                 mainColor: appConfig.theme.colors.primary[500],
               }}
             />
-          </Box>
-          {/* Formulário */}
+          </form>
 
           {/* Photo Area */}
           <Box
@@ -162,9 +131,9 @@ export default function PaginaInicial() {
               {username}
             </Text>
           </Box>
-          {/* Photo Area */}
-        </Box>
-      </Box>
+        </div>
+        {/* Photo Area */}
+      </div>
     </>
   )
 }
