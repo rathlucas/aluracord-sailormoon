@@ -1,0 +1,43 @@
+.homeBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #edf060;
+  background-image: url('/background-sailorcord.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .formContainer {
+    display: flex;
+    flex-direction: row;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    max-width: 700px;
+    padding: 32px;
+    margin: 16px;
+    border-radius: 5px;
+
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+    background-color: #212931;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      width: 50%;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+      margin-bottom: 32px;
+    }
+  }
+}
