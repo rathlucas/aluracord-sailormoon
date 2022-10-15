@@ -15,5 +15,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "typescript": "^4.8.4"
   }
 }
